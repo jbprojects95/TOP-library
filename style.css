@@ -1,6 +1,6 @@
 :root {
   --img-url: url(img/inaki-del-olmo-NIJuEQw0RKg-unsplash.jpg);
-  --bg-white: hsla(0, 0%, 93%, 0.829);
+  --bg-white: hsla(0, 0%, 93%, 1);
   --text-colour: #303030;
 }
 
@@ -51,20 +51,20 @@
 }
 
 header {
-  /* outline: 2px solid red; */
+  outline: 2px solid red;
   grid-row: 1;
   padding: 1rem 2rem;
 }
 
 main {
-  /* outline: 2px solid blue; */
+  outline: 2px solid blue;
   grid-row: 2;
   padding: 1rem 2rem;
   height: 100%;
 }
 
 footer {
-  /* outline: 2px solid green; */
+  outline: 2px solid green;
   grid-row: 3;
   padding: 1rem 2rem;
 }
