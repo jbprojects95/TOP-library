@@ -38,16 +38,25 @@
   margin: 0 auto;
 
   background: var(--bg-white);
+
+  position: relative;
+  z-index: 1;
 }
 
 .overlay {
   /* Took this from Kevin Powell's video: https://www.youtube.com/watch?v=NwnZU6mWJkk */
-  height: 100vh;
-  border-image-source: linear-gradient(
+
+  /* border-image-source: linear-gradient(
     rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 0.2)
   );
-  border-image-slice: fill 1;
+  border-image-slice: fill 1; */
+
+  height: 100vh;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.2)
+  );
 }
 
 header {
