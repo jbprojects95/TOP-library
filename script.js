@@ -1,5 +1,7 @@
 const myLibrary = [];
 
+// *---------------------------------------------------[CONSTRUCTOR FN]---------------------------------------------------------------
+
 function Book(title, author, pages) {
   this.title = title;
   this.author = author;
@@ -32,11 +34,14 @@ function addBookToLibrary(title, author, pages) {
   }
 }
 
+// *---------------------------------------------------[APP LOGIC]--------------------------------------------------------------------
+
 const runApp = () => {
   const addBook = document.getElementById("a-b-btn");
   const dialog = document.getElementById("dialog");
   const dialogStatus = document.getElementById("d-status");
 
+  // Will remove as not needed. Just there to see it's working
   function checkDialog(dialog) {
     if (dialog.open) {
       dialogStatus.textContent = "Open";
@@ -50,15 +55,13 @@ const runApp = () => {
     checkDialog(dialog);
   });
 
-  dialog.addEventListener("click", () => {
+  // dialog needs own eventlistener because it has own button.
+  // Event needs to be "submit", "click" makes any click within an area close it, which we don't want.
+  dialog.addEventListener("submit", (e) => {
+    e.preventDefault();
     dialog.close();
     checkDialog(dialog);
   });
 };
-runApp();
 
-// addBookToLibrary("Harry Potter", "J.K Rowling", "500");
-// addBookToLibrary("Harry Potter", "J.K Rowling", "500");
-// addBookToLibrary("The Hobbit", "J.R.R Tolkien", "295", "read");
-// addBookToLibrary("Alice in Wonderland", "CS Lewis", "400");
-// console.table(myLibrary);
+runApp();
