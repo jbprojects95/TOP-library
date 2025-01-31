@@ -86,6 +86,10 @@ main {
   margin: 0 auto;
 }
 
+.book-form::backdrop {
+  backdrop-filter: blur(3px);
+}
+
 p {
   margin-top: 12rem;
 }

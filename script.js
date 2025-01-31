@@ -55,8 +55,8 @@ const runApp = () => {
     checkDialog(dialog);
   });
 
-  // dialog needs own eventlistener because it has own button.
-  // Event needs to be "submit", "click" makes any click within an area close it, which we don't want.
+  // Dialog needs own eventlistener because it has own button.
+  // Event needs to be "submit", "click" makes any click within an area close it, which I don't want.
   dialog.addEventListener("submit", (e) => {
     e.preventDefault();
     dialog.close();
