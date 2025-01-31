@@ -32,11 +32,33 @@ function addBookToLibrary(title, author, pages) {
   }
 }
 
-addBookToLibrary("Harry Potter", "J.K Rowling", "500");
-addBookToLibrary("Harry Potter", "J.K Rowling", "500");
-addBookToLibrary("The Hobbit", "J.R.R Tolkien", "295", "read");
-addBookToLibrary("Alice in Wonderland", "CS Lewis", "400");
-addBookToLibrary("Alice in Wonderland", "CS Lewis", "400");
-addBookToLibrary("Alice in Wonderland", "CS Lewis", "400");
+const runApp = () => {
+  const addBook = document.getElementById("a-b-btn");
+  const dialog = document.getElementById("dialog");
+  const dialogStatus = document.getElementById("d-status");
 
-console.table(myLibrary);
+  function checkDialog(dialog) {
+    if (dialog.open) {
+      dialogStatus.textContent = "Open";
+    } else {
+      dialogStatus.textContent = "Closed";
+    }
+  }
+
+  addBook.addEventListener("click", () => {
+    dialog.showModal();
+    checkDialog(dialog);
+  });
+
+  dialog.addEventListener("click", () => {
+    dialog.close();
+    checkDialog(dialog);
+  });
+};
+runApp();
+
+// addBookToLibrary("Harry Potter", "J.K Rowling", "500");
+// addBookToLibrary("Harry Potter", "J.K Rowling", "500");
+// addBookToLibrary("The Hobbit", "J.R.R Tolkien", "295", "read");
+// addBookToLibrary("Alice in Wonderland", "CS Lewis", "400");
+// console.table(myLibrary);

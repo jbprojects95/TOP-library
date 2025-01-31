@@ -52,6 +52,7 @@
   );
   border-image-slice: fill 1; */
 
+  /* This seems better? Above kept loading in weirdly */
   height: 100vh;
   background: linear-gradient(
     rgba(255, 255, 255, 0.2),
@@ -70,6 +71,23 @@ main {
   grid-row: 2;
   padding: 1rem 2rem;
   height: 100%;
+}
+
+.add-book-btn {
+  margin: 1rem;
+  padding: 0.6rem 1rem;
+}
+
+.book-form {
+  width: 75%;
+  height: 300px;
+  /* height: 80vh; */
+  background-color: #303030;
+  margin: 0 auto;
+}
+
+p {
+  margin-top: 12rem;
 }
 
 footer {
