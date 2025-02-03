@@ -37,22 +37,11 @@ function addBookToLibrary(title, author, pages) {
 // *---------------------------------------------------[APP LOGIC]--------------------------------------------------------------------
 
 const runApp = () => {
-  const addBook = document.getElementById("a-b-btn");
+  const addBook = document.getElementById("a_b_btn");
   const dialog = document.getElementById("dialog");
-  const dialogStatus = document.getElementById("d-status");
-
-  // Will remove as not needed. Just there to see it's working
-  function checkDialog(dialog) {
-    if (dialog.open) {
-      dialogStatus.textContent = "Open";
-    } else {
-      dialogStatus.textContent = "Closed";
-    }
-  }
 
   addBook.addEventListener("click", () => {
     dialog.showModal();
-    checkDialog(dialog);
   });
 
   // Dialog needs own eventlistener because it has own button.
@@ -60,7 +49,6 @@ const runApp = () => {
   dialog.addEventListener("submit", (e) => {
     e.preventDefault();
     dialog.close();
-    checkDialog(dialog);
   });
 };
 
