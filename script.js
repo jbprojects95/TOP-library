@@ -38,9 +38,15 @@ function addBookToLibrary(title, author, pages) {
 
 const runApp = () => {
   const addBook = document.getElementById("a_b_btn");
+  const addBook_2 = document.getElementById("a_b_btn_2");
   const dialog = document.getElementById("dialog");
+  const formSubmit = document.getElementById("add");
 
   addBook.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  addBook_2.addEventListener("click", () => {
     dialog.showModal();
   });
 
@@ -49,6 +55,14 @@ const runApp = () => {
   dialog.addEventListener("submit", (e) => {
     e.preventDefault();
     dialog.close();
+  });
+
+  formSubmit.addEventListener("click", () => {
+    console.log("SUBMITTED!");
+
+    // ! Put addBookToLibrary here so on submit it's added to array
+
+    // ! Need to loop through myLibrary and create a card for each element of array
   });
 };
 
