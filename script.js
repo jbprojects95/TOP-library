@@ -24,14 +24,18 @@ function Book(title, author, pages) {
   };
 }
 
-function addBookToLibrary(title, author, pages) {
+function addBookToLibrary(title, author, pages, read) {
   const duplicate = myLibrary.find((book) => book.title === title);
 
   if (duplicate) {
     console.log(`Sorry, "${title}" is already in your library.`);
   } else {
-    myLibrary.push(new Book(title, author, pages));
+    myLibrary.push(new Book(title, author, pages, read));
   }
+}
+
+function clearForm() {
+  document.getElementById("add_book_form").reset();
 }
 
 // *---------------------------------------------------[APP LOGIC]--------------------------------------------------------------------
@@ -40,7 +44,7 @@ const runApp = () => {
   const addBook = document.getElementById("a_b_btn");
   const addBook_2 = document.getElementById("a_b_btn_2");
   const dialog = document.getElementById("dialog");
-  const formSubmit = document.getElementById("add");
+  const formSubmit = document.getElementById("submit");
 
   addBook.addEventListener("click", () => {
     dialog.showModal();
@@ -55,10 +59,20 @@ const runApp = () => {
   dialog.addEventListener("submit", (e) => {
     e.preventDefault();
     dialog.close();
+    clearForm();
   });
 
   formSubmit.addEventListener("click", () => {
+    let bookTitle = document.getElementById("book_title").value;
+    let bookAuthor = document.getElementById("book_author").value;
+    let bookPages = document.getElementById("book_pages").value;
+    let bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
     console.log("SUBMITTED!");
+    addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
+    // for (const book of myLibrary) {
+    //   console.table(book);
+    // }
+    console.table(myLibrary);
 
     // ! Put addBookToLibrary here so on submit it's added to array
 
