@@ -97,9 +97,15 @@ const runApp = () => {
     let bookAuthor = document.getElementById("book_author").value;
     let bookPages = document.getElementById("book_pages").value;
     let bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
+    const duplicate = myLibrary.find((book) => book.title === bookTitle);
+
     console.log("SUBMITTED!");
-    addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
-    createBookElement(bookTitle, bookAuthor, bookPages, bookRead);
+    if (!duplicate) {
+      addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
+      createBookElement(bookTitle, bookAuthor, bookPages, bookRead);
+    } else {
+      alert("You already have this book in your library");
+    }
 
     console.table(myLibrary);
 

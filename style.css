@@ -43,7 +43,7 @@
   grid-template-rows: minmax(50px, auto) 1fr minmax(50px, auto);
   align-items: center;
 
-  width: min(75%, 1200px);
+  width: 75%;
   min-height: 100dvh;
   margin: 0 auto;
 
@@ -143,11 +143,12 @@ main {
 
 .book_title {
   width: 100%;
-  /* display: inline-block; */
   color: green;
 
-  /* padding-bottom: 1rem; */
-  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  /* Required for text-overflow to actually fucking work!!!! */
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .delete-button {
