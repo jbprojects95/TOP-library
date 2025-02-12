@@ -1,6 +1,6 @@
 const myLibrary = [];
 
-// *---------------------------------------------------[CONSTRUCTOR FN]---------------------------------------------------------------
+// *---------------------------------------------------[UTILITY]---------------------------------------------------------------
 
 function Book(title, author, pages) {
   this.title = title;
@@ -38,6 +38,30 @@ function clearForm() {
   document.getElementById("add_book_form").reset();
 }
 
+function displayBookElement() {
+  return;
+}
+
+function createBookElement(title, author, pages, read) {
+  const container = document.getElementsByClassName("book-display")[0];
+  const bookCard = document.createElement("div");
+  bookCard.classList.add("book_card");
+
+  bookCard.innerHTML = `
+    <h1 class="book_title">${title}</h1>
+    <h2 class="book_author">${author}</h2>
+    <p class="book_pages">Pages: ${pages}</p>
+    <p class="book_read">Read: ${read}</p>
+    <button class="delete-button">Remove</button>
+ `;
+
+  container.appendChild(bookCard);
+}
+
+function deleteBook() {
+  return;
+}
+
 // *---------------------------------------------------[APP LOGIC]--------------------------------------------------------------------
 
 const runApp = () => {
@@ -45,6 +69,7 @@ const runApp = () => {
   const addBook_2 = document.getElementById("a_b_btn_2");
   const dialog = document.getElementById("dialog");
   const formSubmit = document.getElementById("submit");
+  const closeDialog = document.getElementById("cancel");
 
   addBook.addEventListener("click", () => {
     dialog.showModal();
@@ -52,6 +77,11 @@ const runApp = () => {
 
   addBook_2.addEventListener("click", () => {
     dialog.showModal();
+  });
+
+  closeDialog.addEventListener("click", () => {
+    dialog.close();
+    clearForm();
   });
 
   // Dialog needs own eventlistener because it has own button.
@@ -69,12 +99,9 @@ const runApp = () => {
     let bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
     console.log("SUBMITTED!");
     addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
-    // for (const book of myLibrary) {
-    //   console.table(book);
-    // }
-    console.table(myLibrary);
+    createBookElement(bookTitle, bookAuthor, bookPages, bookRead);
 
-    // ! Put addBookToLibrary here so on submit it's added to array
+    console.table(myLibrary);
 
     // ! Need to loop through myLibrary and create a card for each element of array
   });

@@ -20,8 +20,10 @@
 /*! ------------------[LAYOUT]------------------ */
 
 .background_img {
-  height: 100dvh;
-  width: 100dvw;
+  min-height: 100dvh;
+  height: auto;
+  width: 100%;
+
   background: linear-gradient(
       0deg,
       rgba(233, 232, 232, 0.1),
@@ -29,8 +31,11 @@
     ),
     var(--img-url);
   background-size: cover;
-  background-position: center;
+  background-position: top center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  overflow-x: hidden;
 }
 
 .grid_div {
@@ -38,8 +43,8 @@
   grid-template-rows: minmax(50px, auto) 1fr minmax(50px, auto);
   align-items: center;
 
-  width: 75%;
-  height: 100dvh;
+  width: min(75%, 1200px);
+  min-height: 100dvh;
   margin: 0 auto;
 
   background: var(--bg-white);
@@ -55,7 +60,7 @@
   border-image-slice: fill 1; */
 
   /* This seems better? Above kept loading in weirdly */
-  height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(
     rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 0.2)
@@ -76,7 +81,7 @@ header {
 /*! ------------------[MAIN]------------------ */
 
 main {
-  outline: 2px solid blue;
+  /* outline: 2px solid blue; */
   grid-row: 2;
   padding: 1rem 2rem;
   height: 100%;
@@ -100,22 +105,56 @@ main {
 /*? ------------------[MAIN-BOOK-DISPLAY]------------------ */
 
 .book-display {
+  outline: 1px solid blue;
   grid-row: 1;
-  border: 1px solid red;
-  height: 100%;
+  /* height: 100%; */
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 0.5fr));
+  grid-auto-rows: auto;
   gap: 0.5rem;
+  align-items: start;
+
+  padding: 1rem;
+
+  /* min-height: 100dvh; */
+  height: auto;
 }
 
-.book-card {
-  /* outline: 1px solid gray;
-  width: 25%;
-  height: 45%; */
+/*? ------------------[BOOK-CARD]------------------ */
+
+.book_card {
+  outline: 1px solid gray;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  width: 100%;
+  max-width: 400px;
+  min-height: 250px;
+  height: auto;
+
+  padding: 1rem;
+  text-align: center;
+}
+
+.book_title {
+  width: 100%;
+  /* display: inline-block; */
+  color: green;
+
+  /* padding-bottom: 1rem; */
+  overflow-wrap: break-word;
+}
+
+.delete-button {
+  margin-top: 2rem;
+  padding: 0.5rem 0.6rem;
+  width: 6rem;
+  min-width: 3rem;
 }
 
 /*? ------------------[MAIN-DIALOG]------------------ */
