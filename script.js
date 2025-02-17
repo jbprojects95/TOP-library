@@ -6,7 +6,6 @@ function Book(title, author, pages) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  // this.read = "false"
   this.read = false;
   // **Below doesn't work for boolean values (regarding if it's been read or not),
   // **as the commented code treats it as a string:
@@ -42,24 +41,38 @@ function displayBookElement() {
   return;
 }
 
-function createBookElement(title, author, pages, read) {
+function createBookElement(title, author, pages, read, index) {
   const container = document.getElementsByClassName("book-display")[0];
   const bookCard = document.createElement("div");
   bookCard.classList.add("book_card");
 
+  // This sets a data-attribute to the index param of fn (reminder for future me who will forget)
+  bookCard.setAttribute("data-value", index);
+
   bookCard.innerHTML = `
     <h1 class="book_title">${title}</h1>
     <h2 class="book_author">${author}</h2>
-    <p class="book_pages">Pages: ${pages}</p>
-    <p class="book_read">Read: ${read}</p>
+    <p class="book_pages">${pages} pages</p>
+    <p class="book_read">${read ? "Read" : "Unread"}</p>
     <button class="delete-button">Remove</button>
  `;
 
+  //  Not entirely sure why the delete button needs to be here to work.
+  // I guess it needs to be before we append bookCard, as previously I was getting an error
+  // trying to instantiate bookCard before it existed (or something to that degree)
+  // const deleteBtn = bookCard.querySelector(".delete-button");
+  // deleteBtn.addEventListener("click", () => deleteBook(index));
   container.appendChild(bookCard);
 }
 
-function deleteBook() {
-  return;
+function deleteBook(index) {
+  const container = document.getElementsByClassName("book-display")[0];
+
+  const bookCard = container.querySelector(`[data-value="${index}"]`);
+  if (bookCard) {
+    bookCard.remove();
+    myLibrary.splice(index, 1);
+  }
 }
 
 // *---------------------------------------------------[APP LOGIC]--------------------------------------------------------------------
@@ -102,15 +115,27 @@ const runApp = () => {
     console.log("SUBMITTED!");
     if (!duplicate) {
       addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
-      createBookElement(bookTitle, bookAuthor, bookPages, bookRead);
+      // This uses the library length to create the index number
+      const bookIndex = myLibrary.length;
+      createBookElement(bookTitle, bookAuthor, bookPages, bookRead, bookIndex);
     } else {
       alert("You already have this book in your library");
     }
 
     console.table(myLibrary);
 
-    // ! Need to loop through myLibrary and create a card for each element of array
+    // used a container event rather than attaching one to every book card as that isnt efficient
+    const container = document.getElementsByClassName("book-display")[0];
+    container.addEventListener("click", (e) => {
+      if (e.target.classList.contains("delete-button")) {
+        const bookCard = e.target.closest(".book_card");
+        const index = bookCard.getAttribute("data-value");
+        deleteBook(index);
+      }
+    });
   });
 };
 
 runApp();
+
+console.log(myLibrary);
