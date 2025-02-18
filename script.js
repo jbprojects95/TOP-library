@@ -137,8 +137,9 @@ const runApp = () => {
 
     if (!duplicate) {
       addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
-      // This uses the library length to create the index number
-      const bookIndex = myLibrary.length;
+      // This uses the library length to create the index number,
+      // originally had it without the -1, but it wouldn't let me re-add a deleted book
+      const bookIndex = myLibrary.length - 1;
       createBookElement(bookTitle, bookAuthor, bookPages, bookRead, bookIndex);
     } else {
       alert("You already have this book in your library");
@@ -159,5 +160,3 @@ const runApp = () => {
 };
 
 runApp();
-
-console.log(myLibrary);
