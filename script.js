@@ -1,5 +1,20 @@
 const myLibrary = [];
 
+// !! THIS IS FOR GENERATING RANDOM KEYS AND ASSOC THEM TO <LI>:
+// function generateRandomKey() {
+//   return Math.floor(Math.random() * 90000) + 10000;
+// }
+
+// const keyBtn = document.querySelector(".generate_key");
+// keyBtn.addEventListener("click", () => {
+//   console.log(generateRandomKey());
+// });
+
+// userList.forEach((user) => {
+//   user.randomKey = generateRandomKey();
+//   console.log(`${user.textContent}: ${user.randomKey}`);
+// });
+
 // *---------------------------------------------------[UTILITY]---------------------------------------------------------------
 
 function Book(title, author, pages) {
@@ -34,7 +49,7 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function clearForm() {
-  document.getElementById("add_book_form").reset();
+  return document.getElementById("add_book_form").reset();
 }
 
 function displayBookElement() {
@@ -79,20 +94,21 @@ function deleteBook(index) {
 
 const runApp = () => {
   const addBook = document.getElementById("a_b_btn");
-  const addBook_2 = document.getElementById("a_b_btn_2");
   const dialog = document.getElementById("dialog");
   const formSubmit = document.getElementById("submit");
-  const closeDialog = document.getElementById("cancel");
+  const closeDialog = document.getElementById("close");
+  const cancelDialog = document.getElementById("cancel");
 
   addBook.addEventListener("click", () => {
     dialog.showModal();
   });
 
-  addBook_2.addEventListener("click", () => {
-    dialog.showModal();
+  closeDialog.addEventListener("click", () => {
+    dialog.close();
+    clearForm();
   });
 
-  closeDialog.addEventListener("click", () => {
+  cancelDialog.addEventListener("click", () => {
     dialog.close();
     clearForm();
   });
@@ -106,13 +122,19 @@ const runApp = () => {
   });
 
   formSubmit.addEventListener("click", () => {
-    let bookTitle = document.getElementById("book_title").value;
-    let bookAuthor = document.getElementById("book_author").value;
-    let bookPages = document.getElementById("book_pages").value;
-    let bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
+    // When working with forms you get the data by element.value
+    const bookTitle = document.getElementById("book_title").value;
+    const bookAuthor = document.getElementById("book_author").value;
+    const bookPages = document.getElementById("book_pages").value;
+    const bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
+    const bookForm = document.getElementById("add_book_form");
+
+    if (!bookForm.checkValidity()) {
+      return;
+    }
+
     const duplicate = myLibrary.find((book) => book.title === bookTitle);
 
-    console.log("SUBMITTED!");
     if (!duplicate) {
       addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
       // This uses the library length to create the index number

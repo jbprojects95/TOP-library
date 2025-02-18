@@ -12,22 +12,19 @@
       <div class="grid_div">
         <header>
           <h1>Litrater.</h1>
-          <button type="submit" class="add_book_btn" id="a_b_btn_2">
+          <button type="submit" class="add_book_btn" id="a_b_btn">
             New Book
           </button>
         </header>
         <main>
           <div class="book-display"></div>
-          <button type="submit" class="add_book_btn" id="a_b_btn">
-            New Book
-          </button>
 
           <!--! -------------DIALOG FORM------------- !-->
           <dialog class="book_form" id="dialog">
             <form method="dialog" id="add_book_form">
               <!-- <div class="dialog-header"> -->
 
-              <button type="submit" class="close_btn" id="cancel">
+              <button type="submit" class="close_btn" id="close">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
@@ -44,16 +41,26 @@
               <h2 class="form_title form_row">Add book</h2>
               <!-- </div> -->
               <div class="form_row">
-                <label for="book_title">Title</label>
-                <input type="text" id="book_title" name="book_title" />
+                <label for="book_title">Title*</label>
+                <input type="text" id="book_title" name="book_title" required />
               </div>
               <div class="form_row">
-                <label for="book_author">Author</label>
-                <input type="text" id="book_author" name="book_author" />
+                <label for="book_author">Author*</label>
+                <input
+                  type="text"
+                  id="book_author"
+                  name="book_author"
+                  required
+                />
               </div>
               <div class="form_row">
-                <label for="book_pages">Pages</label>
-                <input type="number" id="book_pages" name="book_pages" />
+                <label for="book_pages">Pages*</label>
+                <input
+                  type="number"
+                  id="book_pages"
+                  name="book_pages"
+                  required
+                />
               </div>
               <div class="form_row">
                 <div class="checkbox_container">

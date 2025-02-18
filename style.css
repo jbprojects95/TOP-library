@@ -105,9 +105,8 @@ main {
 /*? ------------------[MAIN-BOOK-DISPLAY]------------------ */
 
 .book-display {
-  outline: 1px solid blue;
+  /* outline: 1px solid blue; */
   grid-row: 1;
-  /* height: 100%; */
 
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 0.5fr));
@@ -116,8 +115,6 @@ main {
   align-items: start;
 
   padding: 1rem;
-
-  /* min-height: 100dvh; */
   height: auto;
 }
 
