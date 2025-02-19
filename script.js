@@ -1,6 +1,7 @@
 const myLibrary = [];
 
-// TODO: Add 5* rating system for books
+// DONE: Add 5* rating system for books
+// TODO: Add logic for 5* rating system
 // TODO: Implement random num gen for each book
 // TODO: Change how delete fn gets book from array
 
