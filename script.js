@@ -1,6 +1,10 @@
 const myLibrary = [];
 
-// !! THIS IS FOR GENERATING RANDOM KEYS AND ASSOC THEM TO <LI>:
+// TODO: Add 5* rating system for books
+// TODO: Implement random num gen for each book
+// TODO: Change how delete fn gets book from array
+
+// ? THIS IS FOR GENERATING RANDOM KEYS AND ASSOC THEM TO <LI>:
 // function generateRandomKey() {
 //   return Math.floor(Math.random() * 90000) + 10000;
 // }
@@ -72,11 +76,6 @@ function createBookElement(title, author, pages, read, index) {
     <button class="delete-button">Remove</button>
  `;
 
-  //  Not entirely sure why the delete button needs to be here to work.
-  // I guess it needs to be before we append bookCard, as previously I was getting an error
-  // trying to instantiate bookCard before it existed (or something to that degree)
-  // const deleteBtn = bookCard.querySelector(".delete-button");
-  // deleteBtn.addEventListener("click", () => deleteBook(index));
   container.appendChild(bookCard);
 }
 
@@ -114,7 +113,8 @@ const runApp = () => {
   });
 
   // Dialog needs own eventlistener because it has own button.
-  // Event needs to be "submit", "click" makes any click within an area close it, which I don't want.
+  // Event needs to be "submit", "click" makes any click within an area close it
+  // which I don't want.
   dialog.addEventListener("submit", (e) => {
     e.preventDefault();
     dialog.close();
