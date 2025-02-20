@@ -1,7 +1,8 @@
 const myLibrary = [];
 
 // DONE: Add 5* rating system for books
-// TODO: Add logic for 5* rating system
+// TODO: Add logic for 5* rating system:
+// *add data-value to a tags so when clicked it returns value to be used
 // TODO: Implement random num gen for each book
 // TODO: Change how delete fn gets book from array
 
@@ -27,6 +28,7 @@ function Book(title, author, pages) {
   this.author = author;
   this.pages = pages;
   this.read = false;
+  this.rating = 0;
   // **Below doesn't work for boolean values (regarding if it's been read or not),
   // **as the commented code treats it as a string:
   // this.info = function () {
@@ -43,13 +45,13 @@ function Book(title, author, pages) {
   };
 }
 
-function addBookToLibrary(title, author, pages, read) {
+function addBookToLibrary(title, author, pages, read, rating) {
   const duplicate = myLibrary.find((book) => book.title === title);
 
   if (duplicate) {
     console.log(`Sorry, "${title}" is already in your library.`);
   } else {
-    myLibrary.push(new Book(title, author, pages, read));
+    myLibrary.push(new Book(title, author, pages, read, rating));
   }
 }
 
@@ -61,7 +63,7 @@ function displayBookElement() {
   return;
 }
 
-function createBookElement(title, author, pages, read, index) {
+function createBookElement(title, author, pages, read, rating, index) {
   const container = document.getElementsByClassName("book-display")[0];
   const bookCard = document.createElement("div");
   bookCard.classList.add("book_card");
@@ -74,6 +76,7 @@ function createBookElement(title, author, pages, read, index) {
     <h2 class="book_author">${author}</h2>
     <p class="book_pages">${pages} pages</p>
     <p class="book_read">${read ? "Read" : "Unread"}</p>
+    <p class="book_read">Rating: ${rating}</p>
     <button class="delete-button">Remove</button>
  `;
 
@@ -122,12 +125,23 @@ const runApp = () => {
     clearForm();
   });
 
+  // *-----------------[STAR-RATING]------------------------------
+  const stars = document.querySelectorAll(".star");
+
+  stars.forEach((star, index) => {
+    star.addEventListener("click", () => {
+      const index = star.getAttribute("data-star");
+      console.log(`You rated ${index}/5 stars`);
+    });
+  });
+
   formSubmit.addEventListener("click", () => {
     // When working with forms you get the data by element.value
     const bookTitle = document.getElementById("book_title").value;
     const bookAuthor = document.getElementById("book_author").value;
     const bookPages = document.getElementById("book_pages").value;
     const bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
+
     const bookForm = document.getElementById("add_book_form");
 
     if (!bookForm.checkValidity()) {
@@ -137,7 +151,7 @@ const runApp = () => {
     const duplicate = myLibrary.find((book) => book.title === bookTitle);
 
     if (!duplicate) {
-      addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
+      addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead, bookRating);
       // This uses the library length to create the index number,
       // originally had it without the -1, but it wouldn't let me re-add a deleted book
       const bookIndex = myLibrary.length - 1;
