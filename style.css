@@ -83,6 +83,17 @@ header button {
   top: 0.4rem;
 }
 
+.add_book_btn {
+  grid-row: 2;
+  place-self: center;
+
+  margin: 1rem;
+  padding: 1rem 1rem;
+  line-height: 0;
+  width: 100px;
+  height: 20%;
+  text-align: center;
+}
 /*! ------------------[MAIN]------------------ */
 
 main {
@@ -94,18 +105,6 @@ main {
 
   display: grid;
   grid-template-rows: 1fr auto;
-}
-
-.add_book_btn {
-  grid-row: 2;
-  place-self: center;
-
-  margin: 1rem;
-  padding: 1rem 1rem;
-  line-height: 0;
-  width: 100px;
-  height: 20%;
-  text-align: center;
 }
 
 /*? ------------------[MAIN-BOOK-DISPLAY]------------------ */
@@ -129,6 +128,8 @@ main {
 .book_card {
   outline: 1px solid gray;
 
+  background-color: white;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,6 +151,15 @@ main {
 
   text-overflow: ellipsis;
   /* Required for text-overflow to actually fucking work!!!! */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.book_author {
+  width: 100%;
+  color: blue;
+
+  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -199,11 +209,6 @@ form {
   width: 61%;
 
   text-align: center;
-  /* margin-bottom: 2rem; */
-
-  /* grid-row: 2; */
-  /* padding-bottom: 2rem;
-  padding-top: 2rem; */
 }
 
 .form_row {
@@ -299,7 +304,6 @@ input[type="checkbox"] {
   justify-content: center;
 
   gap: 2rem;
-  /* padding: 2rem; */
 }
 
 .form_btn {
@@ -329,7 +333,7 @@ input[type="checkbox"] {
 .star svg {
   width: 40px;
   height: 40px;
-  /* padding: 3px; */
+  padding: 3px;
 }
 
 .star path {

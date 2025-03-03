@@ -80,8 +80,8 @@ function createBookElement(title, author, pages, read, rating, index) {
   bookCard.setAttribute("data-value", index);
 
   bookCard.innerHTML = `
-    <h1 class="book_title">${title}</h1>
-    <h2 class="book_author">${author}</h2>
+    <h4 class="book_title">${title}</h1>
+    <h4 class="book_author">${author}</h2>
     <p class="book_pages">${pages} pages</p>
     <p class="book_read">${read ? "Read" : "Unread"}</p>
     <p class="book_read">Rating: ${rating}</p>
@@ -91,6 +91,16 @@ function createBookElement(title, author, pages, read, rating, index) {
   container.appendChild(bookCard);
 }
 
+// !Can use a unique ID rather than this
+
+function updateDataAttributes() {
+  const container = document.getElementsByClassName("book-display")[0];
+  const bookCards = container.querySelectorAll(".book_card");
+  bookCards.forEach((card, newIndex) => {
+    card.setAttribute("data-value", newIndex);
+  });
+}
+
 function deleteBook(index) {
   const container = document.getElementsByClassName("book-display")[0];
 
@@ -98,6 +108,8 @@ function deleteBook(index) {
   if (bookCard) {
     bookCard.remove();
     myLibrary.splice(index, 1);
+    updateDataAttributes();
+    console.table(myLibrary);
   }
 }
 
@@ -173,22 +185,29 @@ const runApp = () => {
       // This uses the library length to create the index number,
       // originally had it without the -1, but it wouldn't let me re-add a deleted book
       const bookIndex = myLibrary.length - 1;
-      createBookElement(bookTitle, bookAuthor, bookPages, bookRead, bookIndex);
+      createBookElement(
+        bookTitle,
+        bookAuthor,
+        bookPages,
+        bookRead,
+        0,
+        bookIndex
+      );
     } else {
       alert("You already have this book in your library");
     }
 
-    console.table(myLibrary);
+    // console.table(myLibrary);
+  });
 
-    // used a container event rather than attaching one to every book card as that isnt efficient
-    const container = document.getElementsByClassName("book-display")[0];
-    container.addEventListener("click", (e) => {
-      if (e.target.classList.contains("delete-button")) {
-        const bookCard = e.target.closest(".book_card");
-        const index = bookCard.getAttribute("data-value");
-        deleteBook(index);
-      }
-    });
+  // used a container event rather than attaching one to every book card as that isnt efficient
+  const container = document.getElementsByClassName("book-display")[0];
+  container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete-button")) {
+      const bookCard = e.target.closest(".book_card");
+      const index = bookCard.getAttribute("data-value");
+      deleteBook(index);
+    }
   });
 };
 
