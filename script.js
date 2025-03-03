@@ -6,6 +6,8 @@ const myLibrary = [];
 // TODO: Implement random num gen for each book
 // TODO: Change how delete fn gets book from array
 
+// TODO: Add JS form validation rather than required due to errors from using hidden form inputs due to dialog
+
 // ? THIS IS FOR GENERATING RANDOM KEYS AND ASSOC THEM TO <LI>:
 // function generateRandomKey() {
 //   return Math.floor(Math.random() * 90000) + 10000;
@@ -56,7 +58,13 @@ function addBookToLibrary(title, author, pages, read, rating) {
 }
 
 function clearForm() {
-  return document.getElementById("add_book_form").reset();
+  const stars = document.querySelectorAll(".star");
+  return (
+    document.getElementById("add_book_form").reset(),
+    stars.forEach((star) => {
+      star.classList.remove("active");
+    })
+  );
 }
 
 function displayBookElement() {
@@ -127,11 +135,22 @@ const runApp = () => {
 
   // *-----------------[STAR-RATING]------------------------------
   const stars = document.querySelectorAll(".star");
+  const totalStars = stars.length;
 
   stars.forEach((star, index) => {
     star.addEventListener("click", () => {
-      const index = star.getAttribute("data-star");
-      console.log(`You rated ${index}/5 stars`);
+      const clickedVisualIndex = totalStars - 1 - index;
+
+      stars.forEach((otherStar, otherIndex) => {
+        const otherVisualIndex = totalStars - 1 - otherIndex;
+        if (otherVisualIndex <= clickedVisualIndex) {
+          otherStar.classList.add("active");
+        } else {
+          otherStar.classList.remove("active");
+        }
+      });
+
+      console.log(`You rated ${star.getAttribute("data-star")}/5 stars`);
     });
   });
 
@@ -141,7 +160,6 @@ const runApp = () => {
     const bookAuthor = document.getElementById("book_author").value;
     const bookPages = document.getElementById("book_pages").value;
     const bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
-
     const bookForm = document.getElementById("add_book_form");
 
     if (!bookForm.checkValidity()) {
@@ -151,7 +169,7 @@ const runApp = () => {
     const duplicate = myLibrary.find((book) => book.title === bookTitle);
 
     if (!duplicate) {
-      addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead, bookRating);
+      addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
       // This uses the library length to create the index number,
       // originally had it without the -1, but it wouldn't let me re-add a deleted book
       const bookIndex = myLibrary.length - 1;

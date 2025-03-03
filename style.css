@@ -43,7 +43,7 @@
   grid-template-rows: minmax(50px, auto) 1fr minmax(50px, auto);
   align-items: center;
 
-  width: 75%;
+  max-width: 80%;
   min-height: 100dvh;
   margin: 0 auto;
 
@@ -71,11 +71,16 @@
 
 header {
   grid-row: 1;
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+header button {
+  position: relative;
+  top: 0.4rem;
 }
 
 /*! ------------------[MAIN]------------------ */
@@ -83,8 +88,9 @@ header {
 main {
   /* outline: 2px solid blue; */
   grid-row: 2;
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
   height: 100%;
+  min-width: 75%;
 
   display: grid;
   grid-template-rows: 1fr auto;
@@ -328,6 +334,7 @@ input[type="checkbox"] {
 
 .star path {
   color: #ddd;
+  transition: color 0.2s ease-in-out;
 }
 
 .star svg path:hover {
@@ -336,6 +343,10 @@ input[type="checkbox"] {
 
 .star_container:hover,
 .star:hover ~ .star svg path {
+  color: rgb(243, 217, 26);
+}
+
+.star.active path {
   color: rgb(243, 217, 26);
 }
 
