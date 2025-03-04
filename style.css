@@ -114,10 +114,11 @@ main {
   grid-row: 1;
 
   display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 0.5fr));
+  /* grid-template-columns: repeat(3, minmax(200px, 0.5fr)); */
+  grid-template-columns: 1fr;
   grid-auto-rows: auto;
   gap: 0.5rem;
-  align-items: start;
+  align-content: start;
 
   padding: 1rem;
   height: auto;
@@ -136,8 +137,10 @@ main {
   justify-content: center;
   gap: 0.5rem;
 
-  width: 100%;
-  max-width: 400px;
+  width: 90%;
+  min-width: 50%;
+  margin: 0 auto;
+  /* max-width: 400px; */
   min-height: 250px;
   height: auto;
 
@@ -165,7 +168,7 @@ main {
 }
 
 .delete-button {
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding: 0.5rem 0.6rem;
   width: 6rem;
   min-width: 3rem;
@@ -351,6 +354,19 @@ input[type="checkbox"] {
 }
 
 .star.active path {
+  color: rgb(243, 217, 26);
+}
+
+.book_read svg {
+  position: relative;
+  top: 3px;
+  right: 2px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.book_read svg path {
   color: rgb(243, 217, 26);
 }
 

@@ -1,4 +1,5 @@
 const myLibrary = [];
+let selectedRating = 0;
 
 // DONE: Add 5* rating system for books
 // TODO: Add logic for 5* rating system:
@@ -25,12 +26,12 @@ const myLibrary = [];
 
 // *---------------------------------------------------[UTILITY]---------------------------------------------------------------
 
-function Book(title, author, pages) {
+function Book(title, author, pages, read, rating) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.read = false;
-  this.rating = 0;
+  this.read = read;
+  this.rating = rating;
   // **Below doesn't work for boolean values (regarding if it's been read or not),
   // **as the commented code treats it as a string:
   // this.info = function () {
@@ -61,14 +62,11 @@ function clearForm() {
   const stars = document.querySelectorAll(".star");
   return (
     document.getElementById("add_book_form").reset(),
+    (selectedRating = 0),
     stars.forEach((star) => {
       star.classList.remove("active");
     })
   );
-}
-
-function displayBookElement() {
-  return;
 }
 
 function createBookElement(title, author, pages, read, rating, index) {
@@ -80,11 +78,22 @@ function createBookElement(title, author, pages, read, rating, index) {
   bookCard.setAttribute("data-value", index);
 
   bookCard.innerHTML = `
-    <h4 class="book_title">${title}</h1>
-    <h4 class="book_author">${author}</h2>
+    <h1 class="book_title">${title}</h1>
+    <h2 class="book_author">${author}</h2>
     <p class="book_pages">${pages} pages</p>
     <p class="book_read">${read ? "Read" : "Unread"}</p>
-    <p class="book_read">Rating: ${rating}</p>
+    <p class="book_read">${rating} <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 48 48"
+                    >
+                      <path
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-linejoin="round"
+                        stroke-width="4"
+                        d="m23.999 5l-6.113 12.478L4 19.49l10.059 9.834L11.654 43L24 36.42L36.345 43L33.96 29.325L44 19.491l-13.809-2.013z"
+                      />
+                    </svg></p>
     <button class="delete-button">Remove</button>
  `;
 
@@ -146,12 +155,16 @@ const runApp = () => {
   });
 
   // *-----------------[STAR-RATING]------------------------------
+
   const stars = document.querySelectorAll(".star");
   const totalStars = stars.length;
 
   stars.forEach((star, index) => {
-    star.addEventListener("click", () => {
+    star.addEventListener("click", (e) => {
       const clickedVisualIndex = totalStars - 1 - index;
+
+      const starValue = e.currentTarget.getAttribute("data-star");
+      selectedRating = parseInt(starValue, 10);
 
       stars.forEach((otherStar, otherIndex) => {
         const otherVisualIndex = totalStars - 1 - otherIndex;
@@ -162,7 +175,7 @@ const runApp = () => {
         }
       });
 
-      console.log(`You rated ${star.getAttribute("data-star")}/5 stars`);
+      console.log(selectedRating);
     });
   });
 
@@ -181,7 +194,13 @@ const runApp = () => {
     const duplicate = myLibrary.find((book) => book.title === bookTitle);
 
     if (!duplicate) {
-      addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
+      addBookToLibrary(
+        bookTitle,
+        bookAuthor,
+        bookPages,
+        bookRead,
+        selectedRating
+      );
       // This uses the library length to create the index number,
       // originally had it without the -1, but it wouldn't let me re-add a deleted book
       const bookIndex = myLibrary.length - 1;
@@ -190,7 +209,7 @@ const runApp = () => {
         bookAuthor,
         bookPages,
         bookRead,
-        0,
+        selectedRating,
         bookIndex
       );
     } else {
