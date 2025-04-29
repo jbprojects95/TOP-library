@@ -26,26 +26,27 @@ let selectedRating = 0;
 
 // *---------------------------------------------------[UTILITY]---------------------------------------------------------------
 
-function Book(title, author, pages, read, rating) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.rating = rating;
-  // **Below doesn't work for boolean values (regarding if it's been read or not),
-  // **as the commented code treats it as a string:
-  // this.info = function () {
-  //   return `${this.title} --- ${this.author} --- ${this.pages} pages --- ${
-  //     this.read.charAt(0).toUpperCase() + this.read.slice(1)
-  //   }`;
-
-  // **This uses ternary operators to check the value of this.read
-  // **If true then it returns "Read", else returns "Unread"
-  this.info = function () {
-    return `${this.title} --- ${this.author} --- ${this.pages} pages --- ${
-      this.read ? "Read" : "Unread"
-    }`;
-  };
+class Book {
+  constructor(title, author, pages, read, rating) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.rating = rating;
+    // **Below doesn't work for boolean values (regarding if it's been read or not),
+    // **as the commented code treats it as a string:
+    // this.info = function () {
+    //   return `${this.title} --- ${this.author} --- ${this.pages} pages --- ${
+    //     this.read.charAt(0).toUpperCase() + this.read.slice(1)
+    //   }`;
+    // **This uses ternary operators to check the value of this.read
+    // **If true then it returns "Read", else returns "Unread"
+    this.info = function () {
+      return `${this.title} --- ${this.author} --- ${this.pages} pages --- ${
+        this.read ? "Read" : "Unread"
+      }`;
+    };
+  }
 }
 
 function addBookToLibrary(title, author, pages, read, rating) {
