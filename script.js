@@ -70,6 +70,40 @@ function clearForm() {
   );
 }
 
+function checkForm() {
+  const bookTitleInput = document.getElementById("book_title");
+  const bookAuthorInput = document.getElementById("book_author");
+  const bookPagesInput = document.getElementById("book_pages");
+  // const ratingInput = document.getElementById("")
+
+  if (bookTitleInput.value == "") {
+    bookTitleInput.setCustomValidity("I am expecting a book title!!");
+  } else {
+    bookTitleInput.setCustomValidity("");
+  }
+
+  if (bookAuthorInput.value == "") {
+    bookAuthorInput.setCustomValidity("I'm expecting an author!");
+    console.log(bookAuthorInput.value);
+  } else {
+    bookAuthorInput.setCustomValidity("");
+  }
+
+  if (bookPagesInput.value == "") {
+    bookPagesInput.setCustomValidity("I'm expecting a page number!");
+  } else {
+    bookPagesInput.setCustomValidity("");
+  }
+
+  console.log(bookAuthorInput.value);
+}
+
+function removeCustomErrorMsg(inputField) {
+  if (inputField.value) {
+    inputField.setCustomValidity("");
+  }
+}
+
 function createBookElement(title, author, pages, read, rating, index) {
   const container = document.getElementsByClassName("book-display")[0];
   const bookCard = document.createElement("div");
@@ -149,11 +183,63 @@ const runApp = () => {
   // Dialog needs own eventlistener because it has own button.
   // Event needs to be "submit", "click" makes any click within an area close it
   // which I don't want.
+
   dialog.addEventListener("submit", (e) => {
     e.preventDefault();
-    dialog.close();
+    // When working with forms you get the data by element.value
+    const bookTitle = document.getElementById("book_title").value;
+    const bookAuthor = document.getElementById("book_author").value;
+    const bookPages = document.getElementById("book_pages").value;
+    const bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
+    const bookForm = document.getElementById("add_book_form");
+
+    checkForm();
+
+    if (!bookForm.reportValidity()) {
+      return;
+    }
+
+    const duplicate = myLibrary.find((book) => book.title === bookTitle);
+
+    if (!duplicate) {
+      addBookToLibrary(
+        bookTitle,
+        bookAuthor,
+        bookPages,
+        bookRead,
+        selectedRating,
+      );
+      // This uses the library length to create the index number,
+      // originally had it without the -1, but it wouldn't let me re-add a deleted book
+      const bookIndex = myLibrary.length - 1;
+      createBookElement(
+        bookTitle,
+        bookAuthor,
+        bookPages,
+        bookRead,
+        selectedRating,
+        bookIndex,
+      );
+    } else {
+      alert("You already have this book in your library");
+    }
     clearForm();
+    dialog.close();
   });
+
+  const bookTitleInput = document.getElementById("book_title");
+  const bookAuthorInput = document.getElementById("book_author");
+  const bookPagesInput = document.getElementById("book_pages");
+
+  bookTitleInput.oninput = () => {
+    removeCustomErrorMsg(bookTitleInput);
+  };
+  bookAuthorInput.oninput = () => {
+    removeCustomErrorMsg(bookAuthorInput);
+  };
+  bookPagesInput.oninput = () => {
+    removeCustomErrorMsg(bookPagesInput);
+  };
 
   // *-----------------[STAR-RATING]------------------------------
 
@@ -178,46 +264,6 @@ const runApp = () => {
 
       console.log(selectedRating);
     });
-  });
-
-  formSubmit.addEventListener("click", () => {
-    // When working with forms you get the data by element.value
-    const bookTitle = document.getElementById("book_title").value;
-    const bookAuthor = document.getElementById("book_author").value;
-    const bookPages = document.getElementById("book_pages").value;
-    const bookRead = document.getElementById("book_read").checked; //this.read is boolean so needs checked instead of value
-    const bookForm = document.getElementById("add_book_form");
-
-    if (!bookForm.checkValidity()) {
-      return;
-    }
-
-    const duplicate = myLibrary.find((book) => book.title === bookTitle);
-
-    if (!duplicate) {
-      addBookToLibrary(
-        bookTitle,
-        bookAuthor,
-        bookPages,
-        bookRead,
-        selectedRating
-      );
-      // This uses the library length to create the index number,
-      // originally had it without the -1, but it wouldn't let me re-add a deleted book
-      const bookIndex = myLibrary.length - 1;
-      createBookElement(
-        bookTitle,
-        bookAuthor,
-        bookPages,
-        bookRead,
-        selectedRating,
-        bookIndex
-      );
-    } else {
-      alert("You already have this book in your library");
-    }
-
-    // console.table(myLibrary);
   });
 
   // used a container event rather than attaching one to every book card as that isnt efficient
